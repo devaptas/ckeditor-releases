@@ -1,18 +1,6 @@
-/*[contenteditable="true"].single-line {*/
-    /*white-space: nowrap;*/
-    /*width:200px;*/
-    /*overflow: hidden;*/
-/*}*/
-
-/*[contenteditable="true"].single-line br {*/
-    /*display:none;*/
-/*}*/
-
-/*[contenteditable="true"].single-line p {*/
-    /*margin: 0;*/
-/*}*/
-
-/*[contenteditable="true"].single-line * {*/
-    /*display:inline;*/
-    /*white-space:nowrap;*/
-/*}*/
+td,tr,div {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */      
+}

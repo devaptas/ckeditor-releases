@@ -4,15 +4,13 @@
 
     init: function (editor) {
         var pluginDirectory = this.path;
-        // editor.addContentsCss( pluginDirectory + 'styles/cardiocomp.css' );
 
         editor.widgets.add('cardiocomp', {
-            // button: 'cardiocomp',
 
-            template:
+        template:
 			'<div id="cardiocomp-wrapper" class = "cardiocomp-widget">' +
 
-			    '<b> <span style="display: inline-block; margin-top: 20px; margin-bottom: 20px">Índices das Funções Diastólicas do VE:</span></b> <br>'+
+                ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Índices das Funções Diastólicas do VE:</div></span></b> <br>'+
 
 			    '<table>' +
 
@@ -73,7 +71,7 @@
 			        '</tr>' +
 			    '</table>' +
 
-			    '<b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"> Pressão Sistólica de Artéria Pulmonar e Veia Cava:</span></b> <br>'+
+                ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Pressão Sistólica da Artéria Pulmonar e Veia Cava:</div></span></b> <br>'+
 
 			    '<table>'+
 			        '<tr>' +
@@ -121,7 +119,7 @@
 function _compeditables() {
   var _compeditables = {};
 
-  for (var i = 1; i <= 21; i++) {
+  for (var i = 1; i <= 23; i++) {
     _compeditables['_compeditable' + i] = {
       selector: '.compeditable' + i,
     };

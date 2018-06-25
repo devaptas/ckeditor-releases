@@ -1,15 +1,13 @@
 ﻿CKEDITOR.plugins.add( 'cardio', {
-    requires: 'widget,cardioeco,cardiocomp',
     icons: 'cardio',
 
     init: function (editor) {
 
         editor.widgets.add('cardio', {
-            // button: 'Cardio',
 
             template:
                 '<div id="cardio-wrapper" class = "cardio-widget">' +
-                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div class="editable"></div>Dados do Paciente:</span></b> <br>'+
+                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Dados do Paciente:</div></span></b> <br>'+
                     '<table>' +
                         '<tr>' +
                             '<td> Altura:</td>' +
@@ -30,7 +28,7 @@
                         '</tr>' +
                     '</table>' +
 
-                    '<b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div class="editable"></div>Parâmetros estruturais:</span></b><br>'+
+                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Parâmetros Estruturais:</div></span></b> <br>'+
 
                     '<table>' +
                         '<tr>' +
@@ -116,7 +114,7 @@
                         '</tr>' +
                     '</table>' +
 
-                    '<b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div class="editable"></div>Relações e Funções Ventriculares:</span></b> <br>'+
+                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Relações e Funções Ventriculares:</div></span></b> <br>'+
 
                     '<table>' +
                         '<tr>' +
@@ -211,7 +209,7 @@
 
             upcast: function( element ) {
                  return element.name == "div" && element.hasClass( 'cardio-widget' );;
-            }
+            },
         })
     },
 });
@@ -220,11 +218,10 @@
 function _editables() {
   var editables = {};
 
-  for (var i = 0; i <= 34; i++) {
+  for (var i = 0; i <= 37; i++) {
     editables['editable' + i] = {
         selector: '.editable' + i,
     };
   }
-
   return editables;
 }

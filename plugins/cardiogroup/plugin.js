@@ -9,6 +9,8 @@
             initializeEditorEvents(editor);
         } );
 
+       allowedContent: true,
+
       items = {} ,          
       editor.addMenuGroup('cardio_group');
 
@@ -44,7 +46,6 @@
             onMenu: function() {
                 var active = {};
 
-                // Make all items active.
                 for ( var p in items )
                     active[ p ] = setButtonState(editor);
 
