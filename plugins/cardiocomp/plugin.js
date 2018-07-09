@@ -4,21 +4,19 @@
 
     init: function (editor) {
         var pluginDirectory = this.path;
-        // editor.addContentsCss( pluginDirectory + 'styles/cardiocomp.css' );
 
         editor.widgets.add('cardiocomp', {
-            // button: 'cardiocomp',
 
-            template:
+        template:
 			'<div id="cardiocomp-wrapper" class = "cardiocomp-widget">' +
 
-			    '<b> <span style="display: inline-block; margin-top: 20px; margin-bottom: 20px">Índices das Funções Diastólicas do VE:</span></b> <br>'+
+                ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Parâmetros - Função Diastólica do VE:</div></span></b> <br>'+
 
 			    '<table>' +
-
+			    
 			        '<tr>' +
 			            '<td> Fluxo Mitral Onda E:</td>' +
-			            '<td><div id="fmoe" tabindex="2" class="edt   compeditable1" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
+			            '<td><div id="fmoe" tabindex="1" class="edt   compeditable1" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
 			            '<td> m/s</td>' +
                         '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "reffmoe" class="compeditable2"></div> </td>' +
 			        '</tr>' +
@@ -73,7 +71,7 @@
 			        '</tr>' +
 			    '</table>' +
 
-			    '<b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"> Pressão Sistólica de Artéria Pulmonar e Veia Cava:</span></b> <br>'+
+                ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Pressão Sistólica da Artéria Pulmonar e Veia Cava:</div></span></b> <br>'+
 
 			    '<table>'+
 			        '<tr>' +
@@ -84,28 +82,33 @@
 			        '</tr>' +
 
 			        '<tr>' +
+			            '<td> Pressão Estimada do Átrio Direito:</td>' +
+			            '<td><div  tabindex="8" id="pead" class="edt   compeditable17" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
+			            '<td>mmHG</td>' +
+                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refpead" class="compeditable18"></div> </td>' +
+			        '</tr>' +
+
+			        '<tr>' +
 			            '<td> Veia Cava Inferior:</td>' +
-			            '<td><div  tabindex="8" id="vci" class="edt   compeditable17" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
+			            '<td><div  tabindex="9" id="vci" class="edt   compeditable19" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
 			            '<td>mm</td>' +
-                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refvci" class="compeditable18"></div> </td>' +
+                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refvci" class="compeditable20"></div> </td>' +
 			        '</tr>' +
 
 			        '<tr>' +
 			            '<td> Veia Cava Inferior(Expiração):</td>' +
-			            '<td><div  tabindex="9" id="vcie" class="edt   compeditable19" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
+			            '<td><div  tabindex="10" id="vcie" class="edt   compeditable21" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
 			            '<td>mm</td>' +
-                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refvcie" class="compeditable20"></div> </td>' +
+                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refvcie" class="compeditable22"></div> </td>' +
 			        '</tr>' +
 
 			        '<tr>' +
 			            '<td> Variação da Veia Cava Inferior:</td>' +
 			            '<td><div id="vvci" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
 			            '<td>%</td>' +
-                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refvvci" class="compeditable21"></div> </td>' +
+                        '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refvvci" class="compeditable23"></div> </td>' +
 			        '</tr>' +
 			    '</table>'+
-
-			    '<div style="page-break-after: always"><span style="display: none;">&nbsp;</span></div>' +
 
 			'</div>',
 
@@ -121,7 +124,7 @@
 function _compeditables() {
   var _compeditables = {};
 
-  for (var i = 1; i <= 21; i++) {
+  for (var i = 1; i <= 23; i++) {
     _compeditables['_compeditable' + i] = {
       selector: '.compeditable' + i,
     };

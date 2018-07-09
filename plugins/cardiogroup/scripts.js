@@ -25,15 +25,15 @@ function setReferenceValues(editor) {
     if(cardioWidget) {
         if (patientAge.indexOf('A') > -1 && parseInt(patientAge)> 15) {
 
-            fields = ['refsao', 'refjsn', 'refaa', 'refaesq', 'refddfve', 'refdsfve', 'refeds', 'refedppve','refaae4','refaae2','refvaesc','refvedsc','refvdf','refvsf','reffes','refpec','refmvesc','refmve','referpve'];
+            fields = ['refsao', 'refjsn', 'refaa', 'refaesq', 'refddfve', 'refdsfve', 'refeds', 'refedppve','refvaesc','refvedsc','refvdf','refvsf', 'refvsfsc', 'refvdfsc', 'reffes','refpec','refmvesc','refmve','referpve'];
 
             if (patientGender == 'M') {
 
-                adultReferences = ['31 - 37 mm','26 - 32 mm','26 - 34 mm','30 - 40 mm','42 - 58 mm','25 - 40 mm','06 - 10 mm','06 - 10 mm','<= 200 mm','<= 200 mm','16 - 34 mm/m²','22 - 30 mm/m²','62 - 150 ml','21 - 61 ml','52 - 72 %','25 - 43 %','50 - 102 mm/m²','96 - 200 g','24 - 42 mmm'];
+                adultReferences = ['31 - 37 mm','26 - 32 mm','26 - 34 mm','30 - 40 mm','42 - 58 mm','25 - 40 mm','06 - 10 mm','06 - 10 mm','16 - 34 ml/m²','22 - 30 m²','62 - 150 ml','21 - 61 ml','11 - 31 ml/m²', '34-74 ml/m²','52 - 72 %','25 - 43 %','50 - 102 g/m²','96 - 200 g','24 - 42 mm'];
 
             } else {
 
-                adultReferences = ['27 - 33 mm', '23 - 29 mm', '23 - 31 mm', '27 - 38 mm', '38 - 52 mm', '22 - 35 mm', '06 - 09 mm', '06 - 09 mm', '<= 200 mm', '<= 200 mm', '16 - 34 mm/m²', '23 -31 mm/m²', '46 - 106 ml', '14 - 42 ml', '54 - 74 %', '27 - 45 %', '44 - 88 mm/m²', '66 - 150 g', '22 - 42 mm'];
+                adultReferences = ['27 - 33 mm','23 - 29 mm','23 - 31 mm','27 - 38 mm','38 - 52 mm','22 - 35 mm','06 - 09 mm','06 - 09 mm','16 - 34 ml/m²','23 -31 m²','46 - 106 ml','14 - 42 ml','8 - 24 ml/m²', '29-61 ml/m²','54 - 74 %','27 - 45 %','44 - 88 g/m²','66 - 150 g','22 - 42 mm'];
                 
             }
 
@@ -69,11 +69,11 @@ function setReferenceValues(editor) {
         }
     } else if (cardioCompWidget) {
         if (patientAge.indexOf('A') > -1 && parseInt(patientAge)> 15) {
-            fields = ['reffmoe','reffmoa','refvsea','refes','refel','refrea','refmree','reftdm','refpsap','refvci','refvcie','refvvci'];
+            fields = ['reffmoe','reffmoa','refvsea','refes','refel','refrea','refmree','reftdm','refpsap','refpead','refvci','refvcie','refvvci'];
             if (patientGender == 'M') {
-                adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %'];
+                adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','<5 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %'];
             } else {
-                adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %']
+                adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','<5 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %']
             }
 
             for (var i = 0; i < fields.length; i++) {
@@ -85,8 +85,17 @@ function setReferenceValues(editor) {
 
 function  initializeEditorEvents(editor) {
 
+    editor.on('afterCommandExec', function(event) {
+        var commandName = event.data.name;
+        
+        if(commandName == 'cardio' || commandName == 'cardiocomp') {
+            setReferenceValues(editor);
+        }
+
+    });
+
     editor.on( 'change', function(e) {
-        setReferenceValues(editor);
+
         changedElement = editor.document.getActive();
 
         if (changedElement.hasClass('rep') || changedElement.hasClass('rec') || changedElement.hasClass('esf')) {
@@ -95,10 +104,10 @@ function  initializeEditorEvents(editor) {
         else if(changedElement.hasClass('edt')) {
             makeCalculations(editor, changedElement);
         }
-
     });
 
     editor.on( 'key', function( event ) {
+
         activeElement = editor.document.getActive();
 
         if ((editor.document.getById('cardio-wrapper') || editor.document.getById('cardioeco-wrapper')|| editor.document.getById('cardiocomp-wrapper')) && activeElement.hasClass('edt')) {
@@ -107,7 +116,10 @@ function  initializeEditorEvents(editor) {
             } else if (activeElement.hasClass('cke_widget_editable')){
                 checkCharcount(activeElement,5,event);
             }
-        }
+        } 
+         // else if (activeElement.hasClass('cke_editable')) {
+         //        checkCharcount(activeElement,10,event);
+         // }
     }, null, null, 0);
 }
 
@@ -115,6 +127,7 @@ function  initializeEditorEvents(editor) {
 //e caso as teclas não sejam tab, shift + tab, del, as setas ou backspace. Caso a tecla seja Enter ou Tab,
 //o foco é movido para o próximo campo.
 function checkCharcount(element,charcount, e){
+
      keycode = e.data.keyCode;
 
      if(keycode ==13 || keycode == 9) {
@@ -182,7 +195,6 @@ function getAverage(element, editor) {
 function makeCalculations(editor, changedElement) {
 
     elementId = changedElement.getId();
-     console.log(elementId);
 
     if (elementId == 'altura' || elementId == 'peso') { //Superfície Corporal (m²)
 
@@ -194,20 +206,20 @@ function makeCalculations(editor, changedElement) {
             sc.setText(truncate(result, 3));
             makeCalculations(editor, sc);
         } else {
-            sc.setText('');
+            sc.  setText('-');
         }
     }
 
-    if (elementId == 'aae4' || elementId == 'aae2' || elementId == 'cae'|| elementId == 'sc') { //Volume do AE / Superfície Corporal
+    if (elementId == 'vae' || elementId == 'cae'|| elementId == 'sc') { //Volume do AE / Superfície Corporal
 
         vaesc = editor.document.getById('vaesc');
-        values = getFormattedValues('aae4', 'aae2', 'cae', 'sc');
+        values = getFormattedValues('vae', 'sc');
 
         if (checkNumeric(values)) {
-            result = ((0.85 * ((values[0] * values[1]) / values[2])) / values[3]) * 10;
+            result = values[0] / values[1];
             vaesc.setText(truncate(result, 2));
         } else {
-            vaesc.setText('');
+            vaesc.  setText('-');
         }
     }
 
@@ -220,7 +232,7 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             vedsc.setText(truncate(result, 2));
         } else {
-            vedsc.setText('');
+            vedsc.  setText('-');
         }
     }
 
@@ -233,36 +245,88 @@ function makeCalculations(editor, changedElement) {
             result = (values[0] / values[1]) * 100;
             veda.setText(truncate(result, 2));
         } else {
-            veda.setText('');
+            veda.  setText('-');
+        }
+    }
+
+    if (elementId == 'ddfve') { //Volume Diastólico Final
+
+        vdf = editor.document.getById('vdf');
+        values = getFormattedValues('ddfve');
+
+        if (checkNumeric(values)) {
+            result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000);
+            vdf.setText(truncate(result, 2));
+        } else {
+            vdf. setText('-');
+        }
+    }
+
+    if (elementId == 'dsfve') { //Volume Sistólico Final
+
+        vsf = editor.document.getById('vsf');
+        values = getFormattedValues('dsfve');
+
+        if (checkNumeric(values)) {
+            result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000);
+            vsf.setText(truncate(result, 2));
+        } else {
+            vsf. setText('-');
         }
     }
 
     if (elementId == 'ddfve' || elementId == 'sc') { //Volume Diastólico Final /Superficie Corporal
 
-        vdf = editor.document.getById('vdf');
+        vdfsc = editor.document.getById('vdfsc');
         values = getFormattedValues('ddfve', 'sc');
 
         if (checkNumeric(values)) {
             result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000) / values[1]
-            vdf.setText(truncate(result, 2));
+            vdfsc.setText(truncate(result, 2));
         } else {
-            vdf.setText('');
+            vdfsc. setText('-');
         }
     }
 
     if (elementId == 'dsfve' || elementId == 'sc') { //Volume Sistólico Final / Superfície Corporal
 
-        vsf = editor.document.getById('vsf');
+        vsfsc = editor.document.getById('vsfsc');
         values = getFormattedValues('dsfve', 'sc');
 
         if (checkNumeric(values)) {
             result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000) / values[1]
-            vsf.setText(truncate(result, 2));
+            vsfsc.setText(truncate(result, 2));
         } else {
-            vsf.setText('');
+            vsfsc. setText('-');
         }
     }
 
+    if (elementId == 'ddfve' || elementId == 'sc') { //Diâmetro Diastólico Final do VE / SC
+
+        ddfvesc = editor.document.getById('ddfvesc');
+        values = getFormattedValues('ddfve', 'sc');
+
+        if (checkNumeric(values)) {
+            result = values[0] / values[1];
+            ddfvesc.setText(truncate(result, 2));
+        } else {
+            ddfvesc.  setText('-');
+        }
+    }
+
+    if (elementId == 'dsfve' || elementId == 'sc') { //Diâmetro Sistólico Final do VE / SC
+
+        dsfvesc = editor.document.getById('dsfvesc');
+        values = getFormattedValues('dsfve', 'sc');
+
+        if (checkNumeric(values)) {
+            result = values[0] / values[1];
+            dsfvesc.setText(truncate(result, 2));
+        } else {
+            dsfvesc.  setText('-');
+        }
+    }
+    
     if (elementId == 'ddfve' || elementId == 'dsfve') { //Fração de Ejeção (Teicholz)
 
         fet = editor.document.getById('fet');
@@ -272,7 +336,7 @@ function makeCalculations(editor, changedElement) {
             result = (((Math.pow(values[0], 2) - Math.pow(values[1], 2)) / Math.pow(values[0], 2)) * 100) * 1.05;
             fet.setText(truncate(result, 2));
         } else {
-            fet.setText('');
+            fet.  setText('-');
         }
     }
 
@@ -285,7 +349,7 @@ function makeCalculations(editor, changedElement) {
             result = (values[0] - values[1]) * (100 / values[0]);
             pec.setText(truncate(result, 2));
         } else {
-            pec.setText('');
+            pec.  setText('-');
         }
     }
 
@@ -299,7 +363,7 @@ function makeCalculations(editor, changedElement) {
             result = ((0.8 * (1.04 * (Math.pow(temp, 3) - Math.pow(values[2], 3)) + 0.6)) / values[3]) / 1000;
             mvesc.setText(truncate(result, 2));
         } else {
-            mvesc.setText('');
+            mvesc.  setText('-');
         }
     }
 
@@ -312,7 +376,7 @@ function makeCalculations(editor, changedElement) {
             result = ((0.8 * (1.04 * (Math.pow(values[0] + values[1] + values[2], 3) - Math.pow(values[2], 3)) + 0.6))) / 1000;
             mve.setText(truncate(result, 2));
         } else {
-            mve.setText('');
+            mve.  setText('-');
         }
     }
 
@@ -326,7 +390,7 @@ function makeCalculations(editor, changedElement) {
             erpve.setText(truncate(result, 2));
             makeCalculations(editor,erpve);
         } else {
-            erpve.setText('');
+            erpve.  setText('-');
         }
     }
 
@@ -380,7 +444,7 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             rea.setText(truncate(result, 2));
         } else {
-            rea.setText('');
+            rea.  setText('-');
         }
     }
 
@@ -390,10 +454,10 @@ function makeCalculations(editor, changedElement) {
         values = getFormattedValues('fmoe', 'es', 'el');
 
         if (checkNumeric(values)) {
-            result = values[0] / (values[1] / values[2]);
+            result = values[0] / ((values[1] + values[2]) / 2);
             mree.setText(truncate(result, 2));
         } else {
-            mree.setText('');
+            mree.  setText('-');
         }
     }
 
@@ -408,7 +472,7 @@ function makeCalculations(editor, changedElement) {
                 result = 100;
             vvci.setText(truncate(result, 2));
         } else {
-            vvci.setText('');
+            vvci. setText('-');
         }
     }
 }
@@ -425,11 +489,16 @@ function getFormattedValues() {
     return values;
 }
 
-//Deixa todos os resultados com o numero de casas decimais especificado.
+//Deixa todos os resultados com o numero de casas decimais especificado. Caso o resultado não seja numérico, retorna 0.
 function truncate(numToBeTruncated, numOfDecimals) {
     var number = numToBeTruncated.toString();
     var pointIndex = number.indexOf('.');
-    return +(number.slice(0, pointIndex > -1 ? ++numOfDecimals + pointIndex : undefined));
+    var truncatedNumber = +(number.slice(0, pointIndex > -1 ? ++numOfDecimals + pointIndex : undefined));
+    if ($.isNumeric(truncatedNumber)) {
+        return truncatedNumber;
+    } else {
+        return '-';
+    }
 }
 
 //Checa se todos os argumentos passados são números(evita ter que ficar chamado isNumeric para todos os elementos manualmente)

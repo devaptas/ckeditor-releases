@@ -1,14 +1,11 @@
 ﻿CKEDITOR.plugins.add( 'cardioeco', {
-    requires: 'widget',
     icons: 'cardioeco',
 
     init: function (editor) {
         var pluginDirectory = this.path;
         var imagePath = pluginDirectory + 'img/cardio-eco.png';
-        // editor.addContentsCss( pluginDirectory + 'styles/cardioeco.css' );
 
         editor.widgets.add('cardioeco', {
-            // button: 'Cardioeco',
 
             template:
                 '<div id="cardioeco-wrapper" class = "cardioeco-widget" style="text-align: center">' +
@@ -423,12 +420,12 @@
                             '</td>'+
                         '</tr>' +
                     '</table>'+
-                        '</td>'+
+                    '</td>'+
                     '</tr>' +
-                '</table>'+
-                '<p style=" font-size: 10px; "><b>Índice de Contratilidade: </b>0-Não Visualizada &nbsp&nbsp&nbsp 1-Contrat. Normal &nbsp&nbsp&nbsp 2-Hipocinesia &nbsp&nbsp&nbsp 3-Acinesia &nbsp&nbsp&nbsp 4-Dicinesia</p>'+
-                '<p style=" font-size: 10px; "><b>Escore de Contratilidade: </b>1-Valor Normal &nbsp&nbsp&nbsp &gt1 e &lt1,6-Disfunção Discreta &nbsp&nbsp&nbsp &gt1,6 e &lt2,0-Disfunção Moderada &nbsp&nbsp&nbsp &gt2,0-Disfunção Importante</p>'+
-                '</div>',
+	                '</table>'+
+	                '<p style=" font-size: 10px; "><b>Índice de Contratilidade: </b>0-Não Visualizada &nbsp&nbsp&nbsp 1-Contrat. Normal &nbsp&nbsp&nbsp 2-Hipocinesia &nbsp&nbsp&nbsp 3-Acinesia &nbsp&nbsp&nbsp 4-Dicinesia</p>'+
+	                '<p style=" font-size: 10px; "><b>Escore de Contratilidade: </b>1-Valor Normal &nbsp&nbsp&nbsp &gt1 e &lt1,6-Disfunção Discreta &nbsp&nbsp&nbsp &gt1,6 e &lt2,0-Disfunção Moderada &nbsp&nbsp&nbsp &gt2,0-Disfunção Importante</p>'+
+	            '</div>',
 
             editables: _tabeditables(),
 
@@ -439,6 +436,7 @@
     },
 });
 
+//O CKEditor não aceita definir uma classe única para tornar todos os elementos editáveis, por isso cada um precisa ter uma classe única.
 function _tabeditables() {
   var tabeditables = {};
 
