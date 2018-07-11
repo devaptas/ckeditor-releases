@@ -23,7 +23,7 @@ function setReferenceValues(editor) {
     cardioCompWidget = editor.document.getById('cardiocomp-wrapper');
 
     if(cardioWidget) {
-        if (patientAge.indexOf('A') > -1 && parseInt(patientAge)> 15) {
+        if (parseInt(patientAge)> 15) {
 
             fields = ['refsao', 'refjsn', 'refaa', 'refaesq', 'refddfve', 'refdsfve', 'refeds', 'refedppve','refvaesc','refvedsc','refvdf','refvsf', 'refvsfsc', 'refvdfsc', 'reffes','refpec','refmvesc','refmve','referpve'];
 
@@ -45,7 +45,7 @@ function setReferenceValues(editor) {
 
             fields = ['refddfve','refaesq','refeds', 'refedppve'];
 
-            if (patientAge.indexOf('M') > -1) { //Caso Exista a letra M na string de idade, significa que o paciente possui menos de 1 ano
+            if (parseInt(patientAge) < 1) {
 
                 if(parseInt(patientAge)<=3) {
                     childReferences = ['21,7 mm', '15,7 mm', '4,2 mm', '4,2 mm'];
@@ -68,7 +68,7 @@ function setReferenceValues(editor) {
             }
         }
     } else if (cardioCompWidget) {
-        if (patientAge.indexOf('A') > -1 && parseInt(patientAge)> 15) {
+        if (parseInt(patientAge)> 15) {
             fields = ['reffmoe','reffmoa','refvsea','refes','refel','refrea','refmree','reftdm','refpsap','refpead','refvci','refvcie','refvvci'];
             if (patientGender == 'M') {
                 adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','<5 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %'];
@@ -117,9 +117,6 @@ function  initializeEditorEvents(editor) {
                 checkCharcount(activeElement,5,event);
             }
         } 
-         // else if (activeElement.hasClass('cke_editable')) {
-         //        checkCharcount(activeElement,10,event);
-         // }
     }, null, null, 0);
 }
 
