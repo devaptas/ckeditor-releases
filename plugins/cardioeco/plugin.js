@@ -1,4 +1,4 @@
-﻿CKEDITOR.plugins.add( 'cardioeco', {
+CKEDITOR.plugins.add( 'cardioeco', {
     icons: 'cardioeco',
 
     init: function (editor) {
@@ -6,7 +6,6 @@
         var imagePath = pluginDirectory + 'img/cardio-eco.png';
 
         editor.widgets.add('cardioeco', {
-
             template:
                 '<div id="cardioeco-wrapper" class = "cardioeco-widget" style="text-align: center">' +
                     "<img src= "+imagePath+" style='width: 614px'/>"+
@@ -428,22 +427,22 @@
 	            '</div>',
 
             editables: _tabeditables(),
-
-            upcast: function( element ) {
-                 return element.name == "div" && element.hasClass( 'cardioeco-widget' );
+            upcast: function(element) {
+                return element.name == "div" && element.hasClass( 'cardioeco-widget' );
             }
         })
-    },
+    }
 });
 
-//O CKEditor não aceita definir uma classe única para tornar todos os elementos editáveis, por isso cada um precisa ter uma classe única.
+// O CKEditor não aceita definir uma classe única para tornar todos os elementos editáveis, por isso cada um precisa ter uma classe única.
 function _tabeditables() {
-  var tabeditables = {};
+    var tabeditables = {};
 
-  for (var i = 0; i <= 83; i++) {
-    tabeditables['tabeditable' + i] = {
-      selector: '.tabeditable' + i,
-    };
-  }
-  return tabeditables;
+    for (var i = 0; i <= 83; i++) {
+        tabeditables['tabeditable' + i] = {
+            selector: '.tabeditable' + i
+        };
+    }
+    
+    return tabeditables;
 }

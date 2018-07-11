@@ -1,12 +1,12 @@
 
-//Seta o estado dos botões dos widgets
-//Caso exista qualquer widget no editor, todos os botões são desabilitados
+// Seta o estado dos botões dos widgets
+// Caso exista qualquer widget no editor, todos os botões são desabilitados
 function setButtonState(editor) {
     cardioWidget = editor.document.getById('cardio-wrapper');
     cardioEcoWidget = editor.document.getById('cardioeco-wrapper');
     cardioCompWidget = editor.document.getById('cardiocomp-wrapper');
 
-    if(cardioWidget || cardioEcoWidget || cardioCompWidget) {
+    if (cardioWidget || cardioEcoWidget || cardioCompWidget) {
         return CKEDITOR.TRISTATE_DISABLED;
     } else {
 
@@ -14,53 +14,56 @@ function setButtonState(editor) {
     }
 }
 
-
 // Define os valores de referência para os campos dos widgets Ecocardio e Ecocardio Complementar
-function setReferenceValues(editor) { 
+function setReferenceValues(editor) {
     patientGender = editor.config.patientGender;
     patientAge = editor.config.patientAge;
     cardioWidget = editor.document.getById('cardio-wrapper');
     cardioCompWidget = editor.document.getById('cardiocomp-wrapper');
 
-    if(cardioWidget) {
-        if (parseInt(patientAge)> 15) {
-
-            fields = ['refsao', 'refjsn', 'refaa', 'refaesq', 'refddfve', 'refdsfve', 'refeds', 'refedppve','refvaesc','refvedsc','refvdf','refvsf', 'refvsfsc', 'refvdfsc', 'reffes','refpec','refmvesc','refmve','referpve'];
+    if (cardioWidget) {
+        if (parseInt(patientAge) > 15) {
+            fields = [
+                'refsao', 'refjsn', 'refaa', 'refaesq', 'refddfve', 'refdsfve', 
+                'refeds', 'refedppve', 'refvaesc', 'refvedsc', 'refvdf', 'refvsf', 
+                'refvsfsc', 'refvdfsc', 'reffes', 'refpec', 'refmvesc', 'refmve', 'referpve'
+            ];
 
             if (patientGender == 'M') {
-
-                adultReferences = ['31 - 37 mm','26 - 32 mm','26 - 34 mm','30 - 40 mm','42 - 58 mm','25 - 40 mm','06 - 10 mm','06 - 10 mm','16 - 34 ml/m²','22 - 30 m²','62 - 150 ml','21 - 61 ml','11 - 31 ml/m²', '34-74 ml/m²','52 - 72 %','25 - 43 %','50 - 102 g/m²','96 - 200 g','24 - 42 mm'];
-
+                adultReferences = ['31 - 37 mm', '26 - 32 mm', '26 - 34 mm', 
+                    '30 - 40 mm', '42 - 58 mm', '25 - 40 mm', '06 - 10 mm', 
+                    '06 - 10 mm', '16 - 34 ml/m²', '22 - 30 m²', '62 - 150 ml', 
+                    '21 - 61 ml', '11 - 31 ml/m²', '34-74 ml/m²', '52 - 72 %', 
+                    '25 - 43 %', '50 - 102 g/m²', '96 - 200 g', '24 - 42 mm'
+                ];
             } else {
-
-                adultReferences = ['27 - 33 mm','23 - 29 mm','23 - 31 mm','27 - 38 mm','38 - 52 mm','22 - 35 mm','06 - 09 mm','06 - 09 mm','16 - 34 ml/m²','23 -31 m²','46 - 106 ml','14 - 42 ml','8 - 24 ml/m²', '29-61 ml/m²','54 - 74 %','27 - 45 %','44 - 88 g/m²','66 - 150 g','22 - 42 mm'];
-                
+                adultReferences = ['27 - 33 mm', '23 - 29 mm', '23 - 31 mm', '27 - 38 mm', 
+                    '38 - 52 mm', '22 - 35 mm', '06 - 09 mm', '06 - 09 mm', '16 - 34 ml/m²',
+                    '23 -31 m²', '46 - 106 ml', '14 - 42 ml', '8 - 24 ml/m²', '29-61 ml/m²', 
+                    '54 - 74 %', '27 - 45 %', '44 - 88 g/m²', '66 - 150 g', '22 - 42 mm'
+                ];
             }
 
             for (var i = 0; i < fields.length; i++) {
                 editor.document.getById(fields[i]).setText(adultReferences[i]);
             }
-
         } else {
-
-            fields = ['refddfve','refaesq','refeds', 'refedppve'];
+            fields = ['refddfve', 'refaesq', 'refeds', 'refedppve'];
 
             if (parseInt(patientAge) < 1) {
-
-                if(parseInt(patientAge)<=3) {
+                if (parseInt(patientAge) <= 3) {
                     childReferences = ['21,7 mm', '15,7 mm', '4,2 mm', '4,2 mm'];
-
-                } else if(parseInt(patientAge)> 3 && parseInt(patientAge)< 12) {
+                } else if (parseInt(patientAge) > 3 && parseInt(patientAge) < 12) {
                     childReferences = ['26,4 mm', '19,2 mm', '4,6 mm', '4,6 mm'];
                 }
-            } else if(parseInt(patientAge) >= 1 && parseInt(patientAge)<= 2){
-                    childReferences = ['30,8 mm', '21,2 mm', '5,6 mm','5,4 mm']
-            } else if(parseInt(patientAge) >= 3 && parseInt(patientAge)<= 5){
-                    childReferences = ['35,9 mm', '21,0 mm', '5,7 mm', '6,1 mm'];
-            } else if(parseInt(patientAge) >= 6 && parseInt(patientAge)<= 10){
-                    childReferences = ['39,7 mm','23,4 mm','7,0 mm','7,3 mm'];
-            } else if(parseInt(patientAge) >= 11 && parseInt(patientAge)<= 15){
-                    childReferences = ['46,3 mm','28,2 mm','7,0 mm','8,8 mm'];
+            } else if (parseInt(patientAge) >= 1 && parseInt(patientAge) <= 2) {
+                childReferences = ['30,8 mm', '21,2 mm', '5,6 mm', '5,4 mm']
+            } else if (parseInt(patientAge) >= 3 && parseInt(patientAge) <= 5) {
+                childReferences = ['35,9 mm', '21,0 mm', '5,7 mm', '6,1 mm'];
+            } else if (parseInt(patientAge) >= 6 && parseInt(patientAge) <= 10) {
+                childReferences = ['39,7 mm', '23,4 mm', '7,0 mm', '7,3 mm'];
+            } else if (parseInt(patientAge) >= 11 && parseInt(patientAge) <= 15) {
+                childReferences = ['46,3 mm', '28,2 mm', '7,0 mm', '8,8 mm'];
             }
 
             for (var i = 0; i < fields.length; i++) {
@@ -68,12 +71,24 @@ function setReferenceValues(editor) {
             }
         }
     } else if (cardioCompWidget) {
-        if (parseInt(patientAge)> 15) {
-            fields = ['reffmoe','reffmoa','refvsea','refes','refel','refrea','refmree','reftdm','refpsap','refpead','refvci','refvcie','refvvci'];
+        if (parseInt(patientAge) > 15) {
+            fields = [
+                'reffmoe', 'reffmoa', 'refvsea', 'refes', 'refel', 'refrea', 'refmree', 
+                'reftdm', 'refpsap', 'refpead', 'refvci', 'refvcie', 'refvvci'
+            ];
+            
             if (patientGender == 'M') {
-                adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','<5 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %'];
+                adultReferences = [
+                    '0,6 - 1,0 m/s', '0,3 - 0,7 m/s', '< 0,5', '< 0,06', '< 0,08', 
+                    '1,1 - 1,7', '> 6', '180 +/- 31 ms', '35 - 40 mmHg', '<5 mmHg', 
+                    '< 21 mm', 'colapso espontâneo = 0', '> 50 %'
+                ];
             } else {
-                adultReferences = ['0,6 - 1,0 m/s','0,3 - 0,7 m/s','< 0,5','< 0,06','< 0,08','1,1 - 1,7','> 6','180 +/- 31 ms','35 - 40 mmHg','<5 mmHg','< 21 mm','colapso espontâneo = 0','> 50 %']
+                adultReferences = [
+                    '0,6 - 1,0 m/s', '0,3 - 0,7 m/s', '< 0,5', '< 0,06', '< 0,08', 
+                    '1,1 - 1,7', '> 6', '180 +/- 31 ms', '35 - 40 mmHg', '<5 mmHg', 
+                    '< 21 mm', 'colapso espontâneo = 0', '> 50 %'
+                ]
             }
 
             for (var i = 0; i < fields.length; i++) {
@@ -83,87 +98,83 @@ function setReferenceValues(editor) {
     }
 }
 
-function  initializeEditorEvents(editor) {
-
-    editor.on('afterCommandExec', function(event) {
+// Inicializa os eventos escutados pelo CKEditor
+function initializeEditorEvents(editor) {
+    editor.on('afterCommandExec', function (event) {
         var commandName = event.data.name;
-        
-        if(commandName == 'cardio' || commandName == 'cardiocomp') {
+
+        if (commandName == 'cardio' || commandName == 'cardiocomp') {
             setReferenceValues(editor);
         }
-
     });
 
-    editor.on( 'change', function(e) {
-
+    editor.on('change', function (e) {
         changedElement = editor.document.getActive();
 
         if (changedElement.hasClass('rep') || changedElement.hasClass('rec') || changedElement.hasClass('esf')) {
             getAverage(changedElement, editor);
-        }
-        else if(changedElement.hasClass('edt')) {
+        } else if (changedElement.hasClass('edt')) {
             makeCalculations(editor, changedElement);
         }
     });
 
-    editor.on( 'key', function( event ) {
-
+    editor.on('key', function (event) {
         activeElement = editor.document.getActive();
 
-        if ((editor.document.getById('cardio-wrapper') || editor.document.getById('cardioeco-wrapper')|| editor.document.getById('cardiocomp-wrapper')) && activeElement.hasClass('edt')) {
+        if ((editor.document.getById('cardio-wrapper') || editor.document.getById('cardioeco-wrapper') || 
+                editor.document.getById('cardiocomp-wrapper')) && activeElement.hasClass('edt')) {
             if (activeElement.hasClass('rep') || activeElement.hasClass('esf') || activeElement.hasClass('rec')) {
-                checkCharcount(activeElement,2,event);
-            } else if (activeElement.hasClass('cke_widget_editable')){
-                checkCharcount(activeElement,5,event);
+                checkCharcount(activeElement, 2, event);
+            } else if (activeElement.hasClass('cke_widget_editable')) {
+                checkCharcount(activeElement, 5, event);
             }
-        } 
+        }
     }, null, null, 0);
 }
 
-//Cancela os eventos de keyDown caso o elemento editável tenha mais que o número de caracteres permitido
-//e caso as teclas não sejam tab, shift + tab, del, as setas ou backspace. Caso a tecla seja Enter ou Tab,
-//o foco é movido para o próximo campo.
-function checkCharcount(element,charcount, e){
+// Cancela os eventos de keyDown caso o elemento editável tenha mais que o número de caracteres permitido
+// e caso as teclas não sejam tab, shift + tab, del, as setas ou backspace. Caso a tecla seja Enter ou Tab,
+// o foco é movido para o próximo campo.
+function checkCharcount(element, charcount, e) {
+    keycode = e.data.keyCode;
 
-     keycode = e.data.keyCode;
-
-     if(keycode ==13 || keycode == 9) {
+    if (keycode == 13 || keycode == 9) {
         e.cancel();
         element.focusNext();
-     }
+    }
 
-    if (((element.getText().length >= charcount) && (!(keycode == 8 || keycode == 46 || keycode == 9 || keycode == 2228233|| keycode == 37 || keycode == 38 || keycode == 39 || keycode == 40)))) {
-       e.cancel();
+    if (((element.getText().length >= charcount) && (!(keycode == 8 || keycode == 46 || keycode == 9 
+            || keycode == 2228233 || keycode == 37 || keycode == 38 || keycode == 39 || keycode == 40)))) {
+        e.cancel();
     }
 }
 
-//Obtém a média de todos os campos do widget Ecocardio com estresse
+// Obtém a média de todos os campos do widget Ecocardio com estresse
 function getAverage(element, editor) {
     var sum = 0
     var filledItens = 0
+    
     if (element.hasClass('rep')) {
         elementClass = '.rep'
-    }
-    else if (element.hasClass('esf')) {
+    } else if (element.hasClass('esf')) {
         elementClass = '.esf'
-    }
-    else if (element.hasClass('rec')) {
+    } else if (element.hasClass('rec')) {
         elementClass = '.rec'
     }
 
     elements = editor.document.find(elementClass);
 
-    for (i=0; i< elements.count(); i++) {
+    for (i = 0; i < elements.count(); i++) {
         element = parseInt(elements.getItem(i).getText());
 
-        if(!isNaN(element) && element > 0) {
+        if (!isNaN(element) && element > 0) {
             sum += element;
             filledItens++;
         }
     }
 
     average = (sum / filledItens).toFixed(2);
-    
+
     if (average == 1)
         average = average + ' (Valor Normal)'
     else if (average > 1.0 && average <= 1.6)
@@ -188,12 +199,11 @@ function getAverage(element, editor) {
     }
 }
 
-//Efetua os cálculos de acordo com o elemento que foi alterado nos widgets Ecocardio e Ecocardio Complementar
+// Efetua os cálculos de acordo com o elemento que foi alterado nos widgets Ecocardio e Ecocardio Complementar
 function makeCalculations(editor, changedElement) {
-
     elementId = changedElement.getId();
 
-    if (elementId == 'altura' || elementId == 'peso') { //Superfície Corporal (m²)
+    if (elementId == 'altura' || elementId == 'peso') { // Superfície Corporal (m²)
 
         sc = editor.document.getById('sc');
         values = getFormattedValues('altura', 'peso');
@@ -203,12 +213,11 @@ function makeCalculations(editor, changedElement) {
             sc.setText(truncate(result, 3));
             makeCalculations(editor, sc);
         } else {
-            sc.  setText('-');
+            sc.setText('-');
         }
     }
 
-    if (elementId == 'vae' || elementId == 'cae'|| elementId == 'sc') { //Volume do AE / Superfície Corporal
-
+    if (elementId == 'vae' || elementId == 'cae' || elementId == 'sc') { // Volume do AE / Superfície Corporal
         vaesc = editor.document.getById('vaesc');
         values = getFormattedValues('vae', 'sc');
 
@@ -216,12 +225,11 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             vaesc.setText(truncate(result, 2));
         } else {
-            vaesc.  setText('-');
+            vaesc.setText('-');
         }
     }
 
-    if (elementId == 'ddfve' || elementId == 'sc') { //VE(d) / Superfície Corporal
-
+    if (elementId == 'ddfve' || elementId == 'sc') { // VE(d) / Superfície Corporal
         vedsc = editor.document.getById('vedsc');
         values = getFormattedValues('ddfve', 'sc');
 
@@ -229,12 +237,11 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             vedsc.setText(truncate(result, 2));
         } else {
-            vedsc.  setText('-');
+            vedsc.setText('-');
         }
     }
 
     if (elementId == 'ddfve' || elementId == 'sc') { // VE(d) / Altura
-
         veda = editor.document.getById('veda');
         values = getFormattedValues('ddfve', 'altura');
 
@@ -242,64 +249,59 @@ function makeCalculations(editor, changedElement) {
             result = (values[0] / values[1]) * 100;
             veda.setText(truncate(result, 2));
         } else {
-            veda.  setText('-');
+            veda.setText('-');
         }
     }
 
-    if (elementId == 'ddfve') { //Volume Diastólico Final
-
+    if (elementId == 'ddfve') { // Volume Diastólico Final
         vdf = editor.document.getById('vdf');
         values = getFormattedValues('ddfve');
 
         if (checkNumeric(values)) {
-            result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000);
+            result = (((7 * values[0] * values[0] * values[0]) / (2.4 + (values[0] / 10))) / 1000);
             vdf.setText(truncate(result, 2));
         } else {
-            vdf. setText('-');
+            vdf.setText('-');
         }
     }
 
-    if (elementId == 'dsfve') { //Volume Sistólico Final
-
+    if (elementId == 'dsfve') { // Volume Sistólico Final
         vsf = editor.document.getById('vsf');
         values = getFormattedValues('dsfve');
 
         if (checkNumeric(values)) {
-            result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000);
+            result = (((7 * values[0] * values[0] * values[0]) / (2.4 + (values[0] / 10))) / 1000);
             vsf.setText(truncate(result, 2));
         } else {
-            vsf. setText('-');
+            vsf.setText('-');
         }
     }
 
-    if (elementId == 'ddfve' || elementId == 'sc') { //Volume Diastólico Final /Superficie Corporal
-
+    if (elementId == 'ddfve' || elementId == 'sc') { // Volume Diastólico Final /Superficie Corporal
         vdfsc = editor.document.getById('vdfsc');
         values = getFormattedValues('ddfve', 'sc');
 
         if (checkNumeric(values)) {
-            result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000) / values[1]
+            result = (((7 * values[0] * values[0] * values[0]) / (2.4 + (values[0] / 10))) / 1000) / values[1]
             vdfsc.setText(truncate(result, 2));
         } else {
-            vdfsc. setText('-');
+            vdfsc.setText('-');
         }
     }
 
-    if (elementId == 'dsfve' || elementId == 'sc') { //Volume Sistólico Final / Superfície Corporal
-
+    if (elementId == 'dsfve' || elementId == 'sc') { // Volume Sistólico Final / Superfície Corporal
         vsfsc = editor.document.getById('vsfsc');
         values = getFormattedValues('dsfve', 'sc');
 
         if (checkNumeric(values)) {
-            result = (((7*values[0]*values[0]*values[0])/(2.4+(values[0]/10)))/1000) / values[1]
+            result = (((7 * values[0] * values[0] * values[0]) / (2.4 + (values[0] / 10))) / 1000) / values[1]
             vsfsc.setText(truncate(result, 2));
         } else {
-            vsfsc. setText('-');
+            vsfsc.setText('-');
         }
     }
 
-    if (elementId == 'ddfve' || elementId == 'sc') { //Diâmetro Diastólico Final do VE / SC
-
+    if (elementId == 'ddfve' || elementId == 'sc') { // Diâmetro Diastólico Final do VE / SC
         ddfvesc = editor.document.getById('ddfvesc');
         values = getFormattedValues('ddfve', 'sc');
 
@@ -307,12 +309,11 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             ddfvesc.setText(truncate(result, 2));
         } else {
-            ddfvesc.  setText('-');
+            ddfvesc.setText('-');
         }
     }
 
-    if (elementId == 'dsfve' || elementId == 'sc') { //Diâmetro Sistólico Final do VE / SC
-
+    if (elementId == 'dsfve' || elementId == 'sc') { // Diâmetro Sistólico Final do VE / SC
         dsfvesc = editor.document.getById('dsfvesc');
         values = getFormattedValues('dsfve', 'sc');
 
@@ -320,12 +321,11 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             dsfvesc.setText(truncate(result, 2));
         } else {
-            dsfvesc.  setText('-');
+            dsfvesc.setText('-');
         }
     }
-    
-    if (elementId == 'ddfve' || elementId == 'dsfve') { //Fração de Ejeção (Teicholz)
 
+    if (elementId == 'ddfve' || elementId == 'dsfve') { // Fração de Ejeção (Teicholz)
         fet = editor.document.getById('fet');
         values = getFormattedValues('ddfve', 'dsfve');
 
@@ -333,12 +333,11 @@ function makeCalculations(editor, changedElement) {
             result = (((Math.pow(values[0], 2) - Math.pow(values[1], 2)) / Math.pow(values[0], 2)) * 100) * 1.05;
             fet.setText(truncate(result, 2));
         } else {
-            fet.  setText('-');
+            fet.setText('-');
         }
     }
 
-    if (elementId == 'vsf' || elementId == 'dsfve'|| elementId == 'vdf') { //Pecentual Encurtamento Cavidade
-
+    if (elementId == 'vsf' || elementId == 'dsfve' || elementId == 'vdf') { // Pecentual Encurtamento Cavidade
         pec = editor.document.getById('pec');
         values = getFormattedValues('ddfve', 'dsfve');
 
@@ -346,12 +345,11 @@ function makeCalculations(editor, changedElement) {
             result = (values[0] - values[1]) * (100 / values[0]);
             pec.setText(truncate(result, 2));
         } else {
-            pec.  setText('-');
+            pec.setText('-');
         }
     }
 
-    if (elementId == 'eds' || elementId == 'edppve' || elementId == 'sc'|| elementId == 'ddfve') { //Massa do VE/superficie Corporal
-
+    if (elementId == 'eds' || elementId == 'edppve' || elementId == 'sc' || elementId == 'ddfve') { // Massa do VE/superficie Corporal
         mvesc = editor.document.getById('mvesc');
         values = getFormattedValues('eds', 'edppve', 'ddfve', 'sc');
 
@@ -360,12 +358,11 @@ function makeCalculations(editor, changedElement) {
             result = ((0.8 * (1.04 * (Math.pow(temp, 3) - Math.pow(values[2], 3)) + 0.6)) / values[3]) / 1000;
             mvesc.setText(truncate(result, 2));
         } else {
-            mvesc.  setText('-');
+            mvesc.setText('-');
         }
     }
 
-    if (elementId == 'edppve' || elementId == 'vsf'|| elementId == 'ddfve') { //Massa Ventricular Esquerda
-
+    if (elementId == 'edppve' || elementId == 'vsf' || elementId == 'ddfve') { // Massa Ventricular Esquerda
         mve = editor.document.getById('mve');
         values = getFormattedValues('eds', 'edppve', 'ddfve');
 
@@ -373,56 +370,54 @@ function makeCalculations(editor, changedElement) {
             result = ((0.8 * (1.04 * (Math.pow(values[0] + values[1] + values[2], 3) - Math.pow(values[2], 3)) + 0.6))) / 1000;
             mve.setText(truncate(result, 2));
         } else {
-            mve.  setText('-');
+            mve.setText('-');
         }
     }
 
-    if (elementId == 'edppve' || elementId == 'ddfve') { //Espessura Relativa das Paredes do VE
-
+    if (elementId == 'edppve' || elementId == 'ddfve') { // Espessura Relativa das Paredes do VE
         erpve = editor.document.getById('erpve');
         values = getFormattedValues('edppve', 'ddfve');
 
         if (checkNumeric(values)) {
             result = (2 * values[0]) / values[1];
             erpve.setText(truncate(result, 2));
-            makeCalculations(editor,erpve);
+            makeCalculations(editor, erpve);
         } else {
-            erpve.  setText('-');
+            erpve.setText('-');
         }
     }
 
-    if (elementId == 'erpve' || elementId == 'mvesc') { //Relação ERP e Massa VE i
-
+    if (elementId == 'erpve' || elementId == 'mvesc') { // Relação ERP e Massa VE i
         rerp = editor.document.getById('rerp');
         patientGender = editor.config.patientGender;
         patientAge = editor.config.patientAge;
 
         values = getFormattedValues('erpve', 'mvesc');
-        
-        if(checkNumeric(values)) {
-            if(patientGender == 'M'){
-                if(values[1] <= 115) {
-                    if(values[0] <= 0.42) {
+
+        if (checkNumeric(values)) {
+            if (patientGender == 'M') {
+                if (values[1] <= 115) {
+                    if (values[0] <= 0.42) {
                         rerp.setText('Geometria normal');
                     } else if (values[0] > 0.42) {
                         rerp.setText('Remodelamento Concêntrico');
                     }
                 } else {
-                    if(values[0] <= 0.42) {
+                    if (values[0] <= 0.42) {
                         rerp.setText('Hipertrofia Excêntrica');
                     } else if (values[0] > 0.42) {
                         rerp.setText('Hipertrofia Concêntrica');
                     }
                 }
             } else {
-                if(values[1] <= 95) {
-                    if(values[0] <= 0.42) {
+                if (values[1] <= 95) {
+                    if (values[0] <= 0.42) {
                         rerp.setText('Geometria normal');
                     } else if (values[0] > 0.42) {
                         rerp.setText('Remodelamento Concêntrico');
                     }
                 } else {
-                    if(values[0] <= 0.42) {
+                    if (values[0] <= 0.42) {
                         rerp.setText('Hipertrofia Excêntrica');
                     } else if (values[0] > 0.42) {
                         rerp.setText('Hipertrofia Concêntrica');
@@ -432,8 +427,7 @@ function makeCalculations(editor, changedElement) {
         }
     }
 
-    if (elementId == 'fmoe' || elementId == 'fmoa') { //Relação E / A
-
+    if (elementId == 'fmoe' || elementId == 'fmoa') { // Relação E / A
         rea = editor.document.getById('rea');
         values = getFormattedValues('fmoe', 'fmoa');
 
@@ -441,12 +435,11 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / values[1];
             rea.setText(truncate(result, 2));
         } else {
-            rea.  setText('-');
+            rea.setText('-');
         }
     }
 
-    if (elementId == 'fmoe' || elementId == 'es' || elementId == 'el') { //Média Rel E / e'
-
+    if (elementId == 'fmoe' || elementId == 'es' || elementId == 'el') { // Média Rel E / e'
         mree = editor.document.getById('mree');
         values = getFormattedValues('fmoe', 'es', 'el');
 
@@ -454,12 +447,11 @@ function makeCalculations(editor, changedElement) {
             result = values[0] / ((values[1] + values[2]) / 2);
             mree.setText(truncate(result, 2));
         } else {
-            mree.  setText('-');
+            mree.setText('-');
         }
     }
 
-    if (elementId == 'vci' || elementId == 'vcie') { //Variação da Veia Cava Inferior
-
+    if (elementId == 'vci' || elementId == 'vcie') { // Variação da Veia Cava Inferior
         vvci = editor.document.getById('vvci');
         values = getFormattedValues('vci', 'vcie');
 
@@ -469,16 +461,17 @@ function makeCalculations(editor, changedElement) {
                 result = 100;
             vvci.setText(truncate(result, 2));
         } else {
-            vvci. setText('-');
+            vvci.setText('-');
         }
     }
 }
 
-//Transforma o valor de determinado campo do CKEditor em um valor float válido
-//Devem ser passados como argumentos todos os ids dos campos dos quais se quer os valores
+// Transforma o valor de determinado campo do CKEditor em um valor float válido
+// Devem ser passados como argumentos todos os ids dos campos dos quais se quer os valores
 function getFormattedValues() {
     editor = CKEDITOR.instances.workflow;
-    values = []
+    values = [];
+    
     for (var i = 0; i < arguments.length; i++) {
         value = editor.document.getById(arguments[i]).getText();
         values[i] = value.match(/[a-z]/i) ? '' : parseFloat(value.replace(',', '.'));
@@ -486,11 +479,12 @@ function getFormattedValues() {
     return values;
 }
 
-//Deixa todos os resultados com o numero de casas decimais especificado. Caso o resultado não seja numérico, retorna 0.
+// Deixa todos os resultados com o numero de casas decimais especificado. Caso o resultado não seja numérico, retorna 0.
 function truncate(numToBeTruncated, numOfDecimals) {
     var number = numToBeTruncated.toString();
     var pointIndex = number.indexOf('.');
     var truncatedNumber = +(number.slice(0, pointIndex > -1 ? ++numOfDecimals + pointIndex : undefined));
+    
     if ($.isNumeric(truncatedNumber)) {
         return truncatedNumber;
     } else {
@@ -498,7 +492,7 @@ function truncate(numToBeTruncated, numOfDecimals) {
     }
 }
 
-//Checa se todos os argumentos passados são números(evita ter que ficar chamado isNumeric para todos os elementos manualmente)
+// Checa se todos os argumentos passados são números(evita ter que ficar chamado isNumeric para todos os elementos manualmente)
 function checkNumeric(values) {
     for (var i = 0; i < values.length; i++) {
         if (!$.isNumeric(values[i])) {

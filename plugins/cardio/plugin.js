@@ -1,10 +1,8 @@
-﻿CKEDITOR.plugins.add( 'cardio', {
+CKEDITOR.plugins.add( 'cardio', {
     icons: 'cardio',
 
     init: function (editor) {
-
         editor.widgets.add('cardio', {
-
             template:
                 '<div id="cardio-wrapper" class = "cardio-widget">' +
                     ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Dados do Paciente:</div></span></b> <br>'+
@@ -215,26 +213,25 @@
                             '<td style = "padding-left: 20px"><div></div></td>' +
                         '</tr>' +
                     '</table>' +
-
                 '</div>',
 
             editables: _editables(),
-
-            upcast: function( element ) {
-                 return element.name == "div" && element.hasClass( 'cardio-widget' );;
-            },
-        })
-    },
+            upcast: function(element) {
+                 return element.name == "div" && element.hasClass('cardio-widget');
+            }
+        });
+    }
 });
 
-//O CKEditor não aceita definir uma classe geral para tornar todos os elementos editáveis, por isso cada um precisa ter uma classe única.
+// O CKEditor não aceita definir uma classe geral para tornar todos os elementos editáveis, por isso cada um precisa ter uma classe única.
 function _editables() {
-  var editables = {};
+    var editables = {};
 
-  for (var i = 0; i <= 33; i++) {
-    editables['editable' + i] = {
-        selector: '.editable' + i,
-    };
-  }
-  return editables;
+    for (var i = 0; i <= 33; i++) {
+        editables['editable' + i] = {
+            selector: '.editable' + i
+        };
+    }
+    
+    return editables;
 }
