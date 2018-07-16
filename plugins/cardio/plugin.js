@@ -5,7 +5,7 @@ CKEDITOR.plugins.add( 'cardio', {
         editor.widgets.add('cardio', {
             template:
                 '<div id="cardio-wrapper" class = "cardio-widget">' +
-                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Dados do Paciente:</div></span></b> <br>'+
+                    ' <b><span style="display: inline-block; margin-top: 5px; margin-bottom: 5px"><div>Dados do Paciente:</div></span></b> <br>'+
                     '<table>' +
                         '<tr>' +
                             '<td> Altura:</td>' +
@@ -26,7 +26,7 @@ CKEDITOR.plugins.add( 'cardio', {
                         '</tr>' +
                     '</table>' +
 
-                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Parâmetros Estruturais:</div></span></b> <br>'+
+                    ' <b><span style="display: inline-block; margin-top: 5px; margin-bottom: 5px"><div>Parâmetros Estruturais:</div></span></b> <br>'+
 
                     '<table>' +
                         '<tr>' +
@@ -85,21 +85,22 @@ CKEDITOR.plugins.add( 'cardio', {
                         '</tr>' +
 
                         '<tr>' +
-                            '<td> Volume do Átrio Esquerdo:</td>' +
-                            '<td><div id="vae" class="edt single-line editable18" tabindex="11" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
-                            '<td> mm</td>' +
-                        '</tr>' +
-
-                        '<tr>' +
                             '<td> Espessura Diastólica da PPVE:</td>' +
                             '<td><div id="edppve" class="edt single-line editable19" tabindex="11" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
                             '<td> mm</td>' +
                             '<td style = "padding-left: 20px"><div style = "min-width: 40px" id = "refedppve" class="editable20"></div> </td>' +
                         '</tr>' +
 
+                        '<tr>' +
+                            '<td> Volume do Átrio Esquerdo:</td>' +
+                            '<td><div id="vae" class="edt single-line editable18" tabindex="11" style="width: 45px;height: 18px;overflow: hidden;"> </div> </td>' +
+                            '<td> mm³</td>' +
+                        '</tr>' +
+
+
                     '</table>' +
 
-                    ' <b><span style="display: inline-block; margin-top: 20px; margin-bottom: 20px"><div>Relações e Funções Ventriculares:</div></span></b> <br>'+
+                    ' <b><span style="display: inline-block; margin-top: 5px; margin-bottom: 5px"><div>Relações e Funções Ventriculares:</div></span></b> <br>'+
 
                     '<table>' +
                         '<tr>' +
