@@ -1,4 +1,4 @@
-CKEDITOR.plugins.add('cardiogroup', {
+﻿CKEDITOR.plugins.add('cardiogroup', {
     requires: 'widget,cardioeco,cardiocomp,cardio',
     icons: 'cardiogroup',
 
@@ -13,7 +13,7 @@ CKEDITOR.plugins.add('cardiogroup', {
 
         allowedContent: true,
 
-        items = {};         
+        items = {};
         editor.addMenuGroup('cardio_group');
 
         items.cardio = {

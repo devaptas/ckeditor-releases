@@ -30,14 +30,14 @@ function setReferenceValues(editor) {
 
                     references = {
                          refsao: '31 - 37 mm',
-                         refjsn: '26 - 32 mm', 
-                         refaa: '26 - 34 mm', 
-                         refaesq: '30 - 40 mm', 
+                         refaa: '26 - 34 mm',
+                         refat: '26 - 32 mm',
+                         refaesq: '30 - 40 mm',
                          refdbvd: '25 - 41 mm',
-                         refdpvsvd: '20 - 30 mm', 
-                         refddfve: '42 - 58 mm', 
-                         refdsfve: '25 - 40 mm', 
-                         refeds: '06 - 10 mm', 
+                         refdpvsvd: '20 - 30 mm',
+                         refddfve: '42 - 58 mm',
+                         refdsfve: '25 - 40 mm',
+                         refeds: '06 - 10 mm',
                          refedppve: '06 - 10 mm',
                          refvaesc: '16 - 34 ml/m²',
                          refddfvesc: '22 - 30 mm/m²',
@@ -53,18 +53,18 @@ function setReferenceValues(editor) {
                          refmve: '96 - 200 g',
                          referpve: '0,24 - 0,42 mm'
                     };
-                } else { 
+                } else {
 
                     references = {
                          refsao: '27 - 33 mm',
-                         refjsn: '23 - 29 mm', 
-                         refaa: '23 - 31 mm', 
-                         refaesq: '27 - 38 mm', 
+                         refaa: '23 - 31 mm',
+                         refat: '23 - 29 mm',
+                         refaesq: '27 - 38 mm',
                          refdbvd: '25 - 41 mm',
-                         refdpvsvd: '20 - 30 mm', 
-                         refddfve: '38 - 52 mm', 
-                         refdsfve: '22 - 35 mm', 
-                         refeds: '06 - 09 mm', 
+                         refdpvsvd: '20 - 30 mm',
+                         refddfve: '38 - 52 mm',
+                         refdsfve: '22 - 35 mm',
+                         refeds: '06 - 09 mm',
                          refedppve: '06 - 09 mm',
                          refvaesc: '16 - 34 ml/m²',
                          refddfvesc: '23 -31 mm/m²',
@@ -74,13 +74,13 @@ function setReferenceValues(editor) {
                          refvsfsc: '8 - 24 ml/m²',
                          refvdfsc: '29-61 ml/m²',
                          reffes: '54 - 74 %',
-                         reffet: '52 - 72 %',
+                         reffet: '54 - 74 %',
                          refpec: '27 - 45 %',
                          refmvesc:'43 - 95 g/m²' ,
                          refmve: '66 - 150 g',
                          referpve: '0,22 - 0,42 mm'
                     };
-                }   
+                }
 
             } else {
 
@@ -138,7 +138,7 @@ function setReferenceValues(editor) {
                         refedppve:'8,8 mm',
                     }
 
-                }               
+                }
             }
 
             for (var key in references) {
@@ -149,21 +149,20 @@ function setReferenceValues(editor) {
                     if(!text.replace(/^\s+/g, '').length)
                         field.setText(references[key]);
             }
-        
+
         } else if (cardioCompWidget) {
             if (parseInt(patientAge) > 15) {
-                
+
                 if (patientGender == 'M') {
 
                 references = {
-                    reffmoe: '0,6 - 1,0 m/s',
-                    reffmoa: '0,3 - 0,7 m/s',
-                    refvsea: '< 0,5',
-                    refes: '< 0,06',
-                    refel: '< 0,08',
+                    reffmoe: '0,6 - 1,0 cm/s',
+                    reffmoa: '0,3 - 0,7 cm/s',
+                    refes: '< 7 cm/s',
+                    refel: '< 10 cm/s',
                     refrea: '1,1 - 1,7',
-                    refmree: '> 6',
-                    reftdm: '180 +/- 31 ms', 
+                    refmree: '> 14',
+                    reftdm: '180 +/- 31 ms',
                     refpsap: '35 - 40 mmHg',
                     refpead: '<5 mmHg',
                     refvci: '< 21 mm',
@@ -175,14 +174,13 @@ function setReferenceValues(editor) {
                 } else {
 
                     references = {
-                        reffmoe: '0,6 - 1,0 m/s',
-                        reffmoa: '0,3 - 0,7 m/s',
-                        refvsea: '< 0,5',
-                        refes: '< 0,06',
-                        refel: '< 0,08',
+                        reffmoe: '0,6 - 1,0 cm/s',
+                        reffmoa: '0,3 - 0,7 cm/s',
+                        refes: '< 7 cm/s',
+                        refel: '< 10 cm/s',
                         refrea: '1,1 - 1,7',
-                        refmree: '> 6',
-                        reftdm: '180 +/- 31 ms', 
+                        refmree: '> 14',
+                        reftdm: '180 +/- 31 ms',
                         refpsap: '35 - 40 mmHg',
                         refpead: '<5 mmHg',
                         refvci: '< 21 mm',
@@ -202,7 +200,7 @@ function setReferenceValues(editor) {
                     if(!text.replace(/^\s+/g, '').length)
                         field.setText(references[key]);
             }
-	    }
+        }
 
     }
 }
@@ -224,11 +222,20 @@ function initializeEditorEvents(editor) {
         }
     });
 
+	editor.on('contentDom', function () {
+	    var editable = editor.editable();
+	    editable.attachListener(editable, 'click', function () {
+			selectNodeText(editor);
+	    });
+	});
+
+
     editor.on('change', function (e) {
         changedElement = editor.document.getActive();
 
         if (changedElement.hasClass('rep') || changedElement.hasClass('rec') || changedElement.hasClass('esf')) {
             getAverage(changedElement, editor);
+            setFieldValues(changedElement);
         } else if (changedElement.hasClass('edt')) {
             makeCalculations(editor, changedElement);
         }
@@ -238,7 +245,7 @@ function initializeEditorEvents(editor) {
     editor.on('key', function (event) {
         activeElement = editor.document.getActive();
 
-        if ((editor.document.getById('cardio-wrapper') || editor.document.getById('cardioeco-wrapper') || 
+        if ((editor.document.getById('cardio-wrapper') || editor.document.getById('cardioeco-wrapper') ||
                 editor.document.getById('cardiocomp-wrapper')) && activeElement.hasClass('edt')) {
             if(activeElement.hasClass('refeditable')) {
                 checkCharcount(activeElement, 30, event);
@@ -249,34 +256,72 @@ function initializeEditorEvents(editor) {
             }
         }
 
-		setTimeout(function(){ editor.fire('change');}, 100); //Corrige o bug do autosave não guardar a ultima informação editada
+        setTimeout(function(){ editor.fire('change');}, 100); //Corrige o bug do autosave não guardar a ultima informação editada
 
     }, null, null, 0);
 }
 
-// Cancela os eventos de keyDown caso o elemento editável tenha mais que o número de caracteres permitido
-// e caso as teclas não sejam tab, shift + tab, del, as setas ou backspace. Caso a tecla seja Enter ou Tab,
-// o foco é movido para o próximo campo.
-function checkCharcount(element, charcount, e) {
-    keycode = e.data.keyCode;
+// Seleciona o texto de um campo editável
+function selectNodeText(editor) {
+	element = editor.document.getActive();
+	if (element.hasClass('rep') || element.hasClass('rec') || element.hasClass('esf') || element.hasClass('edt')) {
+	    var range = editor.createRange();
+		range.setStart( element, 0 );
+		range.setEnd( element.getFirst(), element.getText().length  );
+		editor.getSelection().selectRanges( [ range ] );
+		range.moveToElementEditablePosition(element, true);
+	}
+}
 
-    if (keycode == 13 || keycode == 9) {
+// Cancela os eventos de keyDown caso o elemento editável tenha mais que o número de caracteres permitido
+// e caso as teclas não sejam tab, shift + tab, del, as setas ou backspace. Caso a tecla seja Enter, Tab ou a seta para cima,
+// o foco é movido para o próximo campo. Caso as teclas sejam shift + tab ou a seta para cima, o foco é movido para o campo
+// anterior. Em todos os casos, após a mudança de campo, o texto contido dentro do campo é selecionado.
+function checkCharcount(element, charcount, e) {
+    let keycode = e.data.keyCode;
+
+    if (keycode == 13 || keycode == 9 || keycode == 40) {
         e.cancel();
         if (!element.hasClass('refeditable'))
             element.focusNext();
+            selectNodeText(CKEDITOR.instances.workflow);
     }
 
-    if (((element.getText().length >= charcount) && (!(keycode == 8 || keycode == 46 || keycode == 9 
+    if (keycode == 2228233 || keycode == 38) {
+    	e.cancel();
+    	element.focusPrevious();
+        selectNodeText(CKEDITOR.instances.workflow);
+    }
+
+    if (((element.getText().length >= charcount) && (!(keycode == 8 || keycode == 46 || keycode == 9
             || keycode == 2228233 || keycode == 37 || keycode == 38 || keycode == 39 || keycode == 40)))) {
         e.cancel();
+        selectNodeText(CKEDITOR.instances.workflow);
     }
+}
+
+// No widget Ecocardio com estresse, encontra todos os campos que tem a legenda com o mesmo valor e 
+// aplica o valor digitado em todos eles.
+function setFieldValues(element) {
+
+    let parentTr = $(element.$).parents('tr')[1];
+    let targetText = $(element.$).parents('tr').first().find('td').first().text();
+    let newValue = element.getText();
+
+    var elems = $(parentTr).children('td').children().children().children().filter(function() {
+        return $(this).children().first().text() == targetText && !this.childNodes[0].isSameNode($(element.$).parent().prev()[0])
+    });
+
+    elems.each(function() {
+        $(this).children().not(':first').children().text(newValue);
+    })
 }
 
 // Obtém a média de todos os campos do widget Ecocardio com estresse
 function getAverage(element, editor) {
     var sum = 0
     var filledItens = 0
-    
+
     if (element.hasClass('rep')) {
         elementClass = '.rep'
     } else if (element.hasClass('esf')) {
@@ -415,7 +460,7 @@ function makeCalculations(editor, changedElement) {
     if (elementId == 'vdf') { // Volume Diastólico Final /Superficie Corporal (caso seja alterado o campo Volume Diastólico Final)
         vdfsc = editor.document.getById('vdfsc');
         values = getFormattedValues('vdf', 'sc');
-        
+
         if (checkNumeric(values)) {
             result = values[0] / values[1]
             vdfsc.setText(truncate(result, 1));
@@ -439,7 +484,7 @@ function makeCalculations(editor, changedElement) {
     if (elementId == 'vsf') { // Volume Sistólico Final /Superficie Corporal (caso seja alterado o campo Volume Sistólico Final)
         vsfsc = editor.document.getById('vsfsc');
         values = getFormattedValues('vsf', 'sc');
-        
+
         if (checkNumeric(values)) {
             result = values[0] / values[1]
             vsfsc.setText(truncate(result, 1));
@@ -506,7 +551,7 @@ function makeCalculations(editor, changedElement) {
             temp = values[0] + values[1] + values[2];
             result = ((0.8 * (1.04 * (Math.pow(temp, 3) - Math.pow(values[2], 3)) + 0.6)) / values[3]) / 1000;
             mvesc.setText(truncate(result, 1));
-            
+
         } else {
             mvesc.setText('-');
         }
@@ -536,7 +581,7 @@ function makeCalculations(editor, changedElement) {
             erpve.setText('-');
         }
     }
-    
+
     if (elementId == 'erpve' || elementId == 'mvesc'|| elementId == 'eds') { // Relação ERP e Massa VE i
         rerp = editor.document.getById('rerp');
         patientGender = editor.config.patientGender;
@@ -623,7 +668,7 @@ function makeCalculations(editor, changedElement) {
 function getFormattedValues() {
     editor = CKEDITOR.instances.workflow;
     values = [];
-    
+
     for (var i = 0; i < arguments.length; i++) {
         value = editor.document.getById(arguments[i]).getText();
         values[i] = value.match(/[a-z]/i) ? '' : parseFloat(value.replace(',', '.'));
@@ -636,7 +681,7 @@ function truncate(numToBeTruncated, numOfDecimals) {
     var number = numToBeTruncated.toString();
     var pointIndex = number.indexOf('.');
     var truncatedNumber = +(number.slice(0, pointIndex > -1 ? ++numOfDecimals + pointIndex : undefined));
-    
+
     if ($.isNumeric(truncatedNumber)) {
         return truncatedNumber;
     } else {
