@@ -37,7 +37,6 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 							// Quando o botão "OK" é pressionado, insere o valor da variável no lugar do placeholder
 							// e incrementa o contador de uso do respectivo valor.
 							let selectedField = $("#values-container input[type='radio']:checked");
-							console.log(selectedField);
 			                $.ajax({
 			                    url: selectedField.data('url'),
 			                    data: {id: selectedField.data('id')},
@@ -45,8 +44,8 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 									$('#values-container').append(data.htmlMessage);
 			                    }
 			                });
-							if(selectedField.value)
-								CKEDITOR.instances.workflow.insertHtml(selectedField.val);
+							if(selectedField.val())
+								CKEDITOR.instances.workflow.insertHtml(selectedField.val());
 						},
 					}
 				],
