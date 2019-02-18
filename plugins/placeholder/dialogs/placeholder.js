@@ -3,7 +3,7 @@
 CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 
 	return {
-		title: 'Substituir variável',
+		title: 'Preenchimento de valores',
 		minWidth: 500,
 		minHeight: 100,
 		contents: [
@@ -21,7 +21,7 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 							// remove as classes do CKEDITOR que interferem com o css.
 							$('#values-container').html('');
 							$('.cke_reset_all').removeClass('cke_reset_all');
-							$('.cke_dialog_ui_button').addClass('btn btn-xs').removeClass('cke_dialog_ui_button');
+							$('a.cke_dialog_ui_button').addClass('btn btn-xs').removeClass('cke_dialog_ui_button');
 							$('.cke_dialog_ui_button_ok').addClass('btn-success').removeClass('cke_dialog_ui_button_ok');
 							$('.cke_dialog_ui_button_cancel').addClass('btn-danger').removeClass('cke_dialog_ui_button_cancel');
 
@@ -52,8 +52,8 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 			}
 		],
 	  buttons: [
-	    CKEDITOR.dialog.okButton,
-	    CKEDITOR.dialog.cancelButton
+	    CKEDITOR.dialog.cancelButton,
+	    CKEDITOR.dialog.okButton
 	 ]
  	};
 } );
