@@ -1,10 +1,10 @@
-'use strict';
+var timer = 0;
 
 CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 
 	return {
 		title: 'Preenchimento de valores',
-		minWidth: 500,
+		minWidth: 200,
 		minHeight: 100,
 		contents: [
 			{
@@ -19,17 +19,22 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 						setup: function( widget ) {
 							// Ao carregar o dialog, limpa o html dos valores anteriores e
 							// remove as classes do CKEDITOR que interferem com o css.
-							$('#values-container').html('');
-							$('.cke_reset_all').removeClass('cke_reset_all');
+							$('#values-container').empty();
+							$('.cke_editor_workflow_dialog').removeClass('cke_reset_all');
 							$('a.cke_dialog_ui_button').addClass('btn btn-xs').removeClass('cke_dialog_ui_button');
-							$('.cke_dialog_ui_button_ok').addClass('btn-success').removeClass('cke_dialog_ui_button_ok');
+							$('.cke_dialog_ui_button_ok').addClass('btn-success cke_disabled').removeClass('cke_dialog_ui_button_ok');
 							$('.cke_dialog_ui_button_cancel').addClass('btn-danger').removeClass('cke_dialog_ui_button_cancel');
 
-			                $.ajax({
+							$('.variables-dialog').remove();
+
+			                $.ajax({ 
 			                    url: editor.config.placeholderUrl,
 			                    data: {name: widget.data.name},
 			                    success: function(data) {
-									$('#values-container').append(data.htmlMessage);
+			                    	$('#values-container').empty().hide().append(data.htmlMessage).slideDown(100);;
+									let dialog = CKEDITOR.dialog.getCurrent();
+									if (dialog)
+										dialog.enableButton('ok');
 			                    }
 			                });
 						},
@@ -37,16 +42,17 @@ CKEDITOR.dialog.add( 'placeholder', function( editor ) {
 							// Quando o botão "OK" é pressionado, insere o valor da variável no lugar do placeholder
 							// e incrementa o contador de uso do respectivo valor.
 							let selectedField = $("#values-container input[type='radio']:checked");
-			                $.ajax({
-			                    url: selectedField.data('url'),
-			                    data: {id: selectedField.data('id')},
-			                    success: function(data) {
-									$('#values-container').append(data.htmlMessage);
-			                    }
-			                });
-							if(selectedField.val())
-								CKEDITOR.instances.workflow.insertHtml(selectedField.val());
-						},
+			                
+							if(selectedField.val()) {
+								let editor = CKEDITOR.instances.workflow;
+								editor.insertHtml(selectedField.val(), 'text');
+								editor.updateElement();
+								clearTimeout(timer);
+	                            timer = setTimeout(function() {
+	                               focusVariable(CKEDITOR.instances.workflow);
+	                            }, 10);
+							}
+						}
 					}
 				],
 			}
